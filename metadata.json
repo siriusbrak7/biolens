@@ -1,0 +1,5 @@
+{
+  "name": "BioLens",
+  "description": "An interactive biology learning platform powered by Gemini AI, featuring dynamic notes, flashcards, quizzes, and virtual labs.",
+  "requestFramePermissions": []
+}
