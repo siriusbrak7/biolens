@@ -87,7 +87,7 @@ export const generateTopicContent = async (unitName: string, topicName: string):
     `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
@@ -112,7 +112,7 @@ export const generateBiologyImage = async (prompt: string): Promise<string | nul
     const enhancedPrompt = `educational science illustration, biology textbook style, white background, high resolution, clear details: ${prompt}`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-1.5-flash',
       contents: {
         parts: [
           { text: enhancedPrompt }
