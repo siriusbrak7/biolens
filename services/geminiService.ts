@@ -26,7 +26,7 @@ const contentSchema: Schema = {
         },
         required: ["prompt", "caption"]
       },
-      description: "Generate 2 distinct visual aids (diagrams or illustrations) that help explain the most complex parts of this topic.",
+      description: "Generate 1 distinct visual aid (diagram or illustration) that help explain the most complex part of this topic.",
     },
     flashcards: {
       type: Type.ARRAY,
@@ -87,7 +87,7 @@ export const generateTopicContent = async (unitName: string, topicName: string):
     `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
@@ -112,7 +112,7 @@ export const generateBiologyImage = async (prompt: string): Promise<string | nul
     const enhancedPrompt = `educational science illustration, biology textbook style, white background, high resolution, clear details: ${prompt}`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       contents: {
         parts: [
           { text: enhancedPrompt }
