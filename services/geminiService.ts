@@ -1,14 +1,7 @@
 import { GoogleGenAI, Type, Schema } from '@google/genai';
 import { GeneratedContent } from '../types';
 
-// Get API key from environment - use the mapped process.env.API_KEY from vite.config.ts
-declare const process: {
-  env: {
-    API_KEY?: string;
-  };
-};
-
-const apiKey = process.env.API_KEY;
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!apiKey) {
   throw new Error('API Key is required. Please set VITE_GEMINI_API_KEY in your .env.local file');
@@ -94,12 +87,12 @@ export const generateTopicContent = async (unitName: string, topicName: string):
     `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
         responseSchema: contentSchema,
-        systemInstruction: "You are an expert biology teacher. Focus on clear explanations and visual learning.",
+        systemInstruction: "You are an expert biology teacher. Focus on clear explanations and visual learning. Use markdown for the notes section, including bold text, lists, and headers.",
       },
     });
 
@@ -117,19 +110,14 @@ export const generateBiologyImage = async (prompt: string): Promise<string | nul
   try {
     // We enhance the prompt to ensure the style is consistent (textbook diagram style)
     const enhancedPrompt = `educational science illustration, biology textbook style, white background, high resolution, clear details: ${prompt}`;
-    
+
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
+      model: 'gemini-2.0-flash',
       contents: {
         parts: [
           { text: enhancedPrompt }
         ]
       },
-      config: {
-        imageConfig: {
-          aspectRatio: "16:9",
-        }
-      }
     });
 
     // The SDK returns parts; we need to find the inlineData part

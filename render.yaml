@@ -1,0 +1,18 @@
+services:
+  - type: static
+    name: biolens
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_GEMINI_API_KEY
+        sync: false
+        placeholder: "Enter your Gemini API Key"
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

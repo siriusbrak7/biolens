@@ -34,6 +34,11 @@ export interface VisualResource {
   caption: string;
 }
 
+export interface GeneratedImage {
+  url: string;
+  caption: string;
+}
+
 export interface GeneratedContent {
   notes: string;
   visuals: VisualResource[];
